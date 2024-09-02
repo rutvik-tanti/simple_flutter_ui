@@ -159,7 +159,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     labelText: 'Enter your full name',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
                   validator: _validateName,
@@ -171,7 +171,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     labelText: 'Enter your Email',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
                   validator: _validateEmail,
@@ -184,7 +184,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     labelText: 'Enter Password',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
                   validator: _validatePassword,
@@ -197,7 +197,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     labelText: 'Confirm Password',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
                   validator: _validateConfirmPassword,

@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: 'Enter Password',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
                   validator: _validatePassword,
