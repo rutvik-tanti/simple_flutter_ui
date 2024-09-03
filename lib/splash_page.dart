@@ -1,5 +1,8 @@
 import 'package:demo/registration_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dash_board_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -10,7 +13,23 @@ class SplashPage extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8, bottom: 40),
         child: InkWell(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationPage())),
+          onTap: () async {
+            final prefs = await SharedPreferences.getInstance();
+            final email = prefs.getString('email');
+            final password = prefs.getString('password');
+
+            if (email != null && password != null) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const DashBoardPage()),
+              );
+            } else {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const RegistrationPage()),
+              );
+            }
+          },
           child: Container(
             height: 55,
             decoration: BoxDecoration(

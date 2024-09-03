@@ -1,3 +1,4 @@
+import 'package:demo/dash_board_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,14 +55,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   void _submitForm(context) async {
     if (_formKey.currentState!.validate()) {
-      // Form is valid, you can proceed with further actions
       final prefs = await SharedPreferences.getInstance();
       prefs.clear();
       await prefs.setString('name', _nameController.text);
       await prefs.setString('email', _emailController.text);
       await prefs.setString('password', _passwordController.text);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Registration successfully')));
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashBoardPage()));
     }
   }
 
@@ -155,6 +155,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 TextFormField(
                   controller: _nameController,
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Enter your full name',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -167,6 +168,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _emailController,
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Enter your Email',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -180,6 +182,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _passwordController,
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Enter Password',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -193,6 +196,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _confirmPasswordController,
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),

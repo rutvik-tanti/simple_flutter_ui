@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
       if (storedEmail != null && storedPassword != null) {
         if (storedEmail == _emailController.text && storedPassword == _passwordController.text) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Login successfully')));
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const DashBoardPage()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashBoardPage()));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Invalid email or password')));
         }
@@ -139,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextFormField(
                   controller: _emailController,
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Enter your Email',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -152,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _passwordController,
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     labelText: 'Enter Password',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
