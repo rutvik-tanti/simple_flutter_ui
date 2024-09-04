@@ -118,12 +118,23 @@ class _DashBoardPageState extends State<DashBoardPage> {
               future: _getGreeting(),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        snapshot.data ?? 'Hello!',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  );
                 } else if (snapshot.hasError) {
                   return const Text('Error occurred');
                 } else {
                   return Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 20),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
@@ -138,158 +149,188 @@ class _DashBoardPageState extends State<DashBoardPage> {
               },
             ),
             const SizedBox(height: 10),
-            Container(
-              width: 120,
-              height: 120,
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFFF1FDFE),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    offset: const Offset(0, 4),
-                    blurRadius: 4,
-                  ),
-                ],
-              ),
-              child: const AnalogClock(
-                isLive: true,
-                hourHandColor: Colors.grey,
-                minuteHandColor: Color(0xFF50C2C9),
-                showSecondHand: true,
-                numberColor: Color(0xFF50C2C9),
-                secondHandColor: Color(0xFF50C2C9),
-                showNumbers: true,
-                showAllNumbers: false,
-                textScaleFactor: 2,
-                showTicks: false,
-                showDigitalClock: false,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Task list',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: 260,
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    offset: const Offset(0, 4),
-                    blurRadius: 4,
-                  ),
-                ]),
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Daily Tasks',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+            Wrap(
+              spacing: 20,
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).orientation == Orientation.portrait ? MediaQuery.of(context).size.width : MediaQuery.of(context).size.width / 2.5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 120,
+                        height: 120,
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0xFFF1FDFE),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              offset: const Offset(0, 4),
+                              blurRadius: 4,
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.add,
-                            size: 30,
-                            color: Color(0xFF50C2C9),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text('Add New Task'),
-                                  content: TextField(
-                                    controller: _taskController,
-                                    decoration: const InputDecoration(
-                                      labelText: 'Task',
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        _addTask();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Add'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () => Navigator.of(context).pop(),
-                                      child: const Text('Cancel'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Scrollbar(
-                        radius: const Radius.circular(2),
-                        child: ListView.builder(
-                          itemCount: _tasks.length,
-                          itemBuilder: (context, index) {
-                            final task = _tasks[index];
-                            return InkWell(
-                              onTap: () {
-                                _toggleTaskCompletion(index, !task['completed']);
-                              },
-                              child: SizedBox(
-                                height: 30,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 18,
-                                          width: 18,
-                                          decoration: BoxDecoration(
-                                            color: task['completed'] ? const Color(0xFF50C2C9) : null,
-                                            border: Border.all(color: Colors.black, width: 2),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          task['task'],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                        child: const AnalogClock(
+                          isLive: true,
+                          hourHandColor: Colors.grey,
+                          minuteHandColor: Color(0xFF50C2C9),
+                          showSecondHand: true,
+                          numberColor: Color(0xFF50C2C9),
+                          secondHandColor: Color(0xFF50C2C9),
+                          showNumbers: true,
+                          showAllNumbers: false,
+                          textScaleFactor: 2,
+                          showTicks: false,
+                          showDigitalClock: false,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 10),
+                    ],
+                  ),
                 ),
-              ),
+                SizedBox(
+                  width: MediaQuery.of(context).orientation == Orientation.portrait ? MediaQuery.of(context).size.width : MediaQuery.of(context).size.width / 2.5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Task list',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          height: 260,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                offset: const Offset(0, 4),
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    'Daily Tasks',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.add,
+                                      size: 30,
+                                      color: Color(0xFF50C2C9),
+                                    ),
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text('Add New Task'),
+                                            content: TextField(
+                                              controller: _taskController,
+                                              decoration: const InputDecoration(
+                                                labelText: 'Task',
+                                              ),
+                                              autofocus: true,
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  _addTask();
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text('Add'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.of(context).pop(),
+                                                child: const Text('Cancel'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: Scrollbar(
+                                  radius: const Radius.circular(2),
+                                  child: ListView.builder(
+                                    itemCount: _tasks.length,
+                                    itemBuilder: (context, index) {
+                                      final task = _tasks[index];
+                                      return InkWell(
+                                        onTap: () {
+                                          _toggleTaskCompletion(index, !task['completed']);
+                                        },
+                                        child: SizedBox(
+                                          height: 30,
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 18,
+                                                    width: 18,
+                                                    decoration: BoxDecoration(
+                                                      color: task['completed'] ? const Color(0xFF50C2C9) : null,
+                                                      border: Border.all(color: Colors.black, width: 2),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    task['task'],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:demo/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,33 +51,47 @@ class SplashPage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Wrap(
+          spacing: 20,
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            Image.asset(
-              'assets/i1.png',
-              width: 254,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Gets things with TODs',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SizedBox(
-              width: 203,
-              child: Text(
-                'Lorem ipsum dolor sit amet consectetur. Eget sit nec et euismod. Consequat urna quam felis interdum quisque. Malesuada adipiscing tristique ut eget sed.',
-                style: TextStyle(
-                  color: Colors.grey,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/i1.png',
+                  width: 254,
                 ),
-                textAlign: TextAlign.justify,
-              ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Gets things with TODs',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: max(200, MediaQuery.of(context).size.width * 0.50),
+                  child: const Text(
+                    'Lorem ipsum dolor sit amet consectetur. Eget sit nec et euismod. Consequat urna quam felis interdum quisque. Malesuada adipiscing tristique ut eget sed.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
