@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:demo/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:one_clock/one_clock.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +16,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   String _userName = '';
   final List<Map<String, dynamic>> _tasks = [];
   final TextEditingController _taskController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -94,22 +96,52 @@ class _DashBoardPageState extends State<DashBoardPage> {
               height: MediaQuery.of(context).size.height * 0.33,
               width: double.infinity,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'assets/i3.png',
-                    height: 100,
-                    width: 100,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Welcome $_userName',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.clear();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RegistrationPage()),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 20, top: 10),
+                        child: Icon(
+                          Icons.logout_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const Spacer(), // This pushes the content below it to the bottom
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center, // Center aligns the text and image
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Image.asset(
+                          'assets/i3.png',
+                          height: 100,
+                          width: 100,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Welcome $_userName',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -282,9 +314,11 @@ class _DashBoardPageState extends State<DashBoardPage> {
                               ),
                               Expanded(
                                 child: Scrollbar(
+                                  controller: _scrollController,
                                   radius: const Radius.circular(2),
                                   child: ListView.builder(
                                     itemCount: _tasks.length,
+                                    controller: _scrollController,
                                     itemBuilder: (context, index) {
                                       final task = _tasks[index];
                                       return InkWell(
