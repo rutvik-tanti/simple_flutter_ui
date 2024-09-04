@@ -93,7 +93,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
           children: [
             Container(
               color: const Color(0xFF50C2C9),
-              height: MediaQuery.of(context).size.height * 0.33,
+              height: MediaQuery.of(context).size.height * 0.35,
               width: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
