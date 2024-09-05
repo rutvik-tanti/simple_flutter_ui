@@ -180,6 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(
                         height: 20,
                       ),
+                      const Text('Forgot Password?',style:TextStyle(color:Colors.red))
                     ],
                   ),
                 ),
